@@ -32,14 +32,23 @@ for URL in `cat list.list`; do
 done
 
 # Remove lines starting with "#"
-sed -i '/^#/ d' blocked.list
+# https://stackoverflow.com/questions/12272065/sed-undefined-label-on-macos
+sed -i '' '/^#/ d' blocked.list 
 
-# Remove 127.0.0.1, 0.0.0.0, ::, ^ at the end of lines, || at the beginning, ^M and leading white spaces
-sed -i -e 's/^127.0.0.1//' -e 's/^0.0.0.0//' -e '/::/d' -e 's/\^//' -e 's/^||//' -e 's/\r//g' -e "s/^[ \t]*//" blocked.list
+# Remove 127.0.0.1, 0.0.0.0, ::, ^ at the end of lines, ||cd . at the beginning, ^M and leading white spaces
+#https://stackoverflow.com/questions/34533893/sed-command-creating-unwanted-duplicates-of-file-with-e-extension
+sed -i ''  's/^127.0.0.1//' blocked.list
+sed -i '' 's/^0.0.0.0//' blocked.list
+sed -i '' 's/\^//' blocked.list
+sed -i '' 's/^||//' blocked.list
+sed -i '' 's/\r//g' blocked.list
+sed -i '' "s/^[ \t]*//" blocked.list
+sed -i '' '/::/d' blocked.list
+  
 
 # Remove duplicate lines
 perl -i -ne 'print if ! $a{$_}++' blocked.list
 
 # move youtube domains to a file - removing this as youtube ads are unblocked for now
-# sed -nr '/googlevideo.com/p' blocked.list > youtube.list
-sed -i '/googlevideo.com/d' blocked.list
+sed -nr '/googlevideo.com/p' blocked.list > youtube.list
+sed -i '' '/googlevideo.com/d' blocked.list
