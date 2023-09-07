@@ -5,6 +5,9 @@ cd "$(dirname "$0")"
 
 rm -f blocked.list
 
+cat missed.list >> blocked.list
+cat LG-TV-Ads.txt >> blocked.list
+
 # Read URLs from list.list
 for URL in `cat list.list`; do 
   
