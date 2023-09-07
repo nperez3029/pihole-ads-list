@@ -38,6 +38,9 @@ done
 # https://stackoverflow.com/questions/12272065/sed-undefined-label-on-macos
 sed -i '' '/^#/ d' blocked.list 
 
+# remove characters after '#'
+sed -i '' 's/#.*$//' blocked.list
+
 # Remove 127.0.0.1, 0.0.0.0, ::, ^ at the end of lines, ||cd . at the beginning, ^M and leading white spaces
 #https://stackoverflow.com/questions/34533893/sed-command-creating-unwanted-duplicates-of-file-with-e-extension
 sed -i ''  's/^127.0.0.1//' blocked.list
