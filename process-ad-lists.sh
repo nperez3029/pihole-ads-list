@@ -48,6 +48,9 @@ sed -i '' 's/\r//g' blocked.list
 sed -i '' "s/^[ \t]*//" blocked.list
 sed -i '' '/::/d' blocked.list
   
+# remove lines with html tags
+# https://stackoverflow.com/questions/19878056/sed-remove-tags-from-html-file
+sed -i '' 's/<*[^>]*>//g' blocked.list
 
 # Remove duplicate lines
 perl -i -ne 'print if ! $a{$_}++' blocked.list
